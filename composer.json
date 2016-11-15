@@ -1,5 +1,5 @@
 {
-    "name": "lassehaslev/laravel-cms",
+    "name": "lassehaslev/laravel-fieldable",
     "type": "laravel-plugin",
     "authors": [
         {
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LasseHaslev\\LaravelCms\\": "src/"
+            "LasseHaslev\\LaravelFieldable\\": "src/"
         }
     },
     "autoload-dev": {

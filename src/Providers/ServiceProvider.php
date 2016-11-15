@@ -1,4 +1,4 @@
-<?php namespace LasseHaslev\LaravelCms\Providers;
+<?php namespace LasseHaslev\LaravelFieldable\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

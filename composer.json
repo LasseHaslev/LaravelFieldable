@@ -1,0 +1,11 @@
+{
+    "name": "lassehaslev/laravel-cms",
+    "type": "laravel-plugin",
+    "authors": [
+        {
+            "name": "Lasse S. Haslev",
+            "email": "lasse@haslev.no"
+        }
+    ],
+    "require": {}
+}

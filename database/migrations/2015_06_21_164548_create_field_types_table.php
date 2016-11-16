@@ -21,6 +21,7 @@ class CreateFieldTypesTable extends Migration
                 ->default( '' );
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -69,5 +69,12 @@ class FieldTypesTest extends TestCase
         $this->assertEquals( $fieldTypeView, $fieldType->view );
 
     }
-    // can_delete_field_type
+
+    /** @test */
+    public function can_soft_delete_field_type() {
+        $fieldType = factory( FieldType::class )->create();
+        $fieldType->delete();
+
+        $this->assertTrue( $fieldType->trashed() );
+    }
 }

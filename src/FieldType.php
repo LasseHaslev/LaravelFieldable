@@ -21,4 +21,16 @@ class FieldType extends Model
         return static::create( $attributes );
     }
 
+    public static function Folder( string $relativePath = null )
+    {
+        $returnValue = resource_path( config( 'fieldable.views.fields' ) );
+
+        if ( $relativePath ) {
+            $returnValue .= '/' . $relativePath;
+        }
+
+        return $returnValue;
+    }
+
+
 }

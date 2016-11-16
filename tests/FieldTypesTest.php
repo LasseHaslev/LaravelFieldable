@@ -29,8 +29,18 @@ class FieldTypesTest extends TestCase
         $this->assertEquals( $fieldTypeView, $fieldType->view );
     }
 
-    // Check if view already exists in relative path
     // Check if we have configuration: config( 'fieldable.views.fields' );
+    /** @test */
+    public function check_if_field_view_configuration_is_set() {
+        $this->assertEquals( resource_path( 'views/vendor/fieldable/fields' ), FieldType::Folder() );
+    }
+
+    /** @test */
+    public function check_if_field_type_folder_function_can_have_parameter_for_file() {
+        $this->assertEquals( resource_path( 'views/vendor/fieldable/fields/hello' ), FieldType::Folder( 'hello' ) );
+    }
+
+    // Check if view already exists in relative path
     // can_add_new_field_type
     // can_edit_new_field_type
     // can_delete_field_type

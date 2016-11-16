@@ -32,12 +32,20 @@ class FieldTypesTest extends TestCase
     // Check if we have configuration: config( 'fieldable.views.fields' );
     /** @test */
     public function check_if_field_view_configuration_is_set() {
-        $this->assertEquals( resource_path( 'views/vendor/fieldable/fields' ), FieldType::Folder() );
+        $this->assertEquals( resource_path( 'views/vendor/fieldable/fields' ), FieldType::folder() );
     }
 
     /** @test */
     public function check_if_field_type_folder_function_can_have_parameter_for_file() {
-        $this->assertEquals( resource_path( 'views/vendor/fieldable/fields/hello' ), FieldType::Folder( 'hello' ) );
+        $this->assertEquals( resource_path( 'views/vendor/fieldable/fields/hello' ), FieldType::folder( 'hello' ) );
+    }
+
+    /** @test */
+    public function can_get_full_view_path_from_model() {
+
+        $fieldType = factory( FieldType::class )->create([ 'view'=>'text.blade.php' ]);
+
+        $this->assertEquals( resource_path( 'views/vendor/fieldable/fields/text.blade.php' ), $fieldType->viewPath() );
     }
 
     // Check if view already exists in relative path

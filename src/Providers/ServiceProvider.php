@@ -12,7 +12,6 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->mergeConfigFrom( __DIR__.'/../../config/fieldable.php', 'fieldable');
-
     }
 
     /**
@@ -22,5 +21,9 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/../../config/fieldable.php'=>'fieldable',
+        ]);
+        $this->loadMigrationsFrom( __DIR__.'/../../database/migrations' );
     }
 }

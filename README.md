@@ -14,6 +14,10 @@ $fieldType = FieldType::add([
     'name'=>'FieldType name',
     'view'=>'rellative path from config( 'fieldable.views.fields' )'
 ]);
+
+// Get the full path to the field type view
+// To overwrite the setting, edit fieldable.views.path in config/fieldable.php
+$fieldType->viewPath();
 ```
 
 ## Development

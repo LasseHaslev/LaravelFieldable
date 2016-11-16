@@ -48,8 +48,26 @@ class FieldTypesTest extends TestCase
         $this->assertEquals( resource_path( 'views/vendor/fieldable/fields/text.blade.php' ), $fieldType->viewPath() );
     }
 
-    // Check if view already exists in relative path
-    // can_add_new_field_type
+    /** @test */
+    // public function make_sure_view_exists_before_adding_new_view() {
+    // }
+
+    // Check if view already exists in relative path and prevent if it does not
     // can_edit_new_field_type
+    /** @test */
+    public function can_edit_new_field_type() {
+        $fieldTypeName = 'fieldTypeName';
+        $fieldTypeView = 'fieldTypeView';
+        $fieldType = factory( FieldType::class )->create();
+
+        $fieldType->update( [
+            'name'=>$fieldTypeName,
+            'view'=>$fieldTypeView,
+        ] );
+
+        $this->assertEquals( $fieldTypeName, $fieldType->name );
+        $this->assertEquals( $fieldTypeView, $fieldType->view );
+
+    }
     // can_delete_field_type
 }

@@ -10,4 +10,15 @@ class FieldType extends Model
         'name',
         'view',
     ];
+
+    /**
+     * Add new Field
+     *
+     * @return LasseHaslev\LaravelFieldable\FieldType
+     */
+    public static function add( array $attributes )
+    {
+        return static::create( $attributes );
+    }
+
 }

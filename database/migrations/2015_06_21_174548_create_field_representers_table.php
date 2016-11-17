@@ -15,8 +15,10 @@ class CreateFieldRepresentersTable extends Migration
         Schema::create('field_representers', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name');
-            $table->string('identifier');
+            $table->string('name')
+                ->default( '' );
+            $table->string('identifier')
+                ->default( '' );
 
             $table->integer('field_type_id')
                 ->unsigned()

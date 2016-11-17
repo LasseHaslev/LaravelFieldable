@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class FieldRepresenter extends Model
 {
 
+    protected $table = 'field_representers';
+
     protected $fillable = [
         'name',
         'identifier',

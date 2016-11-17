@@ -29,6 +29,26 @@ class FieldRepresenter extends Model
     }
 
     /**
+     * Update the model in the database.
+     *
+     * @param  array  $attributes
+     * @param  array  $options
+     * @return bool
+     */
+    public function update(array $attributes = [], array $options = [])
+    {
+
+        if (
+            ( isset( $attributes[ 'identifier' ] ) && $attributes['identifier'] != $this->identifier ) ||
+            ( isset( $attributes[ 'field_type_id' ] ) && $attributes['field_type_id'] != $this->identifier )
+        ) {
+            abort( 403 );
+        }
+
+        return parent::update( $attributes, $options );
+    }
+
+    /**
      * Connect to the values
      *
      * @return void

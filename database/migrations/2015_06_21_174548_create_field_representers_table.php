@@ -18,9 +18,15 @@ class CreateFieldRepresentersTable extends Migration
             $table->string('name');
             $table->string('identifier');
 
-            // $table->string('type');
-            // Should be
-            // $table->integer( 'type_id' )
+            $table->integer('field_type_id')
+                ->unsigned()
+                ->nullable()
+                ->index();
+            $table->foreign('field_type_id')
+                ->references('id')
+                ->on('field_types')
+                ->onDelete('cascade');
+
             $table->string('description')
                 ->default( '' );
             $table->boolean('is_repeatable')

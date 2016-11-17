@@ -3,8 +3,8 @@
 use LasseHaslev\LaravelFieldable\FieldType;
 
 /**
- * Class FirstTest
- * @author yourname
+ * Class FieldTypesTest
+ * @author Lasse S. Haslev
  */
 class FieldTypesTest extends TestCase
 {

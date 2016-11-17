@@ -11,7 +11,7 @@ class FieldRepresenter extends Model
     protected $fillable = [
         'name',
         'identifier',
-        'type',
+        'type_id',
         'description',
         'is_repeatable',
     ];

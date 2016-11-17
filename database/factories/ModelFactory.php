@@ -1,6 +1,7 @@
 <?php
 
 use LasseHaslev\LaravelFieldable\FieldType;
+use LasseHaslev\LaravelFieldable\FieldRepresenter;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +18,17 @@ $factory->define(FieldType::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'view' => $faker->word,
+    ];
+});
+$factory->define(FieldRepresenter::class, function (Faker\Generator $faker) {
+
+    $fieldType = factory( FieldType::class )->create();
+
+    return [
+        'name' => $faker->name,
+        'identifier' => str_random(30),
+        'field_type_id' => $fieldType->id,
+        'description' => $faker->paragraph,
+        'is_repeatable' => $faker->boolean( 30 ),
     ];
 });

@@ -88,6 +88,24 @@ class FieldRepresenterTest extends TestCase
         $representer->update( [ 'field_type_id'=>98234 ] );
     }
     // Check if we can force edit change and identifier when edit
+    /** @test */
+    public function can_force_update_non_changeable_properties() {
+        $representer = factory( FieldRepresenter::class )->create();
+
+        $representer->updateForce( [ 'field_type_id'=>98234 ] );
+
+        $this->assertEquals( 'name', $representer->name );
+        $this->assertEquals( '999', $representer->field_type_id );
+    }
 
     // Check if we can get all values for
+    // Can change field positiong (Change order)
+    // Can access values from FieldRepresenter
+    // A Representer can have FieldValues
+    // A representer can be of type group (type_id==null?)
+    // A group can have representers
+    // A normal field can not have any field representer
+
+    // LATER
+    // Can set a minium and maxium value for repeatable
 }

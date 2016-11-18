@@ -9,8 +9,14 @@ use LasseHaslev\LaravelFieldable\FieldRepresenter;
 class FieldValueTest extends TestCase
 {
     // Check if we can use a value formater to format value
-    // etc. image.id to image object
+    // This should have a store and get function
+    // etc. image.id to image object and image object to image.id
+    // Check if we have an interface for that
 
-    // Can add multiple values to fieldable if is_repeatable = true
+    // Can add muliple values if repeatable is true
+    // Can NOT add muliple values if repeatable is true
     // if multiple values is added to fieldable if is_repeatable is false. Just update value
+
+    // LATER
+    // FieldValue obay FieldRepresenter minimum and maximum values
 }

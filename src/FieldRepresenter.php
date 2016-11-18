@@ -16,6 +16,7 @@ class FieldRepresenter extends Model
         'type_id',
         'description',
         'is_repeatable',
+        'field_type_id',
     ];
 
     /**
@@ -27,6 +28,19 @@ class FieldRepresenter extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * Update the model in the database.
+     *
+     * @param  array  $attributes
+     * @param  array  $options
+     * @return bool
+     */
+    public function forceUpdate(array $attributes = [], array $options = [])
+    {
+        parent::update( $attributes, $options );
+    }
+
 
     /**
      * Update the model in the database.

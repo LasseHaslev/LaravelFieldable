@@ -92,7 +92,10 @@ class FieldRepresenterTest extends TestCase
     public function can_force_update_non_changeable_properties() {
         $representer = factory( FieldRepresenter::class )->create();
 
-        $representer->updateForce( [ 'field_type_id'=>98234 ] );
+        $representer->forceUpdate( [
+            'name'=>'name',
+            'field_type_id'=>999,
+        ] );
 
         $this->assertEquals( 'name', $representer->name );
         $this->assertEquals( '999', $representer->field_type_id );

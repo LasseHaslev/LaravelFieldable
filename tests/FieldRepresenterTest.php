@@ -106,6 +106,8 @@ class FieldRepresenterTest extends TestCase
     // A group can have representers
     // A normal field can not have any field representer
 
+    // Write logic to handle the trait to add/handle FieldValue
+
     // LATER
     // Can set a minium and maxium value for repeatable
 }

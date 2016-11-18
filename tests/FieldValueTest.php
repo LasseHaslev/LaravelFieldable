@@ -17,6 +17,8 @@ class FieldValueTest extends TestCase
     // Can NOT add muliple values if repeatable is true
     // if multiple values is added to fieldable if is_repeatable is false. Just update value
 
+    // Write logic to handle the trait to add/handle FieldValue
+
     // LATER
     // FieldValue obay FieldRepresenter minimum and maximum values
 }

@@ -131,10 +131,37 @@ class FieldRepresenterTest extends TestCase
         $this->assertEquals( 2, $representerThree->order );
     }
     /** @test */
-    public function can_change_field_position() {
+    public function is_setting_order_to_only_this_fieldable_so_we_do_not_touch_other_fieldable_types() {
+        $earlierObject = ObjectToBeAddedOn::create();
+        $earlierObject->addField([
+            'name'=>'lisjeflijsef',
+        ]);
+
+        $objectToBeAddedOn = new ObjectToBeAddedOn();
+        $objectToBeAddedOn->save();
+
+        $representer = $objectToBeAddedOn->addField( [
+            'name'=>'lijsef',
+            'field_type_id'=>'1',
+        ] );
+        $representerTwo = $objectToBeAddedOn->addField( [
+            'name'=>'lijsef',
+            'field_type_id'=>'1',
+        ] );
+        $representerThree = $objectToBeAddedOn->addField( [
+            'name'=>'lijsef',
+            'field_type_id'=>'1',
+        ] );
+
+        // dd( $representer );
+        // dd( $representer->name );
+        $this->assertEquals( 0, $representer->order );
+        $this->assertEquals( 1, $representerTwo->order );
+        $this->assertEquals( 2, $representerThree->order );
+
     }
     /** @test */
-    public function is_updating_order_to_only_this_fieldable() {
+    public function can_change_field_position() {
     }
     // Can access values from FieldRepresenter
     // A Representer can have FieldValues

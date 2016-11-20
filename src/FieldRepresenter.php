@@ -15,6 +15,7 @@ class FieldRepresenter extends Model
         'identifier',
         'type_id',
         'description',
+        'order',
         'is_repeatable',
         'field_type_id',
     ];

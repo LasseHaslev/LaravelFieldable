@@ -10,6 +10,8 @@ class FieldType extends Model
 
     use SoftDeletes;
 
+    protected $table = 'field_types';
+
     protected $dates = [ 'deleted_at' ];
 
     protected $fillable = [

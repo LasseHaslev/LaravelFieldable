@@ -17,8 +17,7 @@ trait Fieldable
      */
     public function addField( array $attributes = [] )
     {
-        $this->fields()->create( $attributes );
-        return $this;
+        return $this->fields()->create( $attributes );
     }
 
     /**

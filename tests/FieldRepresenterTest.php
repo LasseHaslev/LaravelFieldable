@@ -3,13 +3,14 @@
 use LasseHaslev\LaravelFieldable\FieldRepresenter;
 use LasseHaslev\LaravelFieldable\Traits\Fieldable;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use LasseHaslev\LaravelFieldable\FieldType;
 
 /**
  * Class
  * @author yourname
  */
 // class ObjectToBeAddedOn extends Illuminate\Database\Eloquent\Model
-class ObjectToBeAddedOn extends FieldRepresenter
+class ObjectToBeAddedOn extends FieldType
 {
     use Fieldable;
 }
@@ -32,18 +33,19 @@ class FieldRepresenterTest extends TestCase
         $objectToBeAddedOn = new ObjectToBeAddedOn();
         $objectToBeAddedOn->save();
 
-        $objectToBeAddedOn->addField([
+        $field = $objectToBeAddedOn->addField([
             'name'=>'Field name',
             'identifier'=>'identifier',
             'description'=>'Description',
             'is_repeatable'=>false,
         ]);
 
+        $this->assertEquals( 'Field name', $objectToBeAddedOn->fields()->first()->name );
         $this->assertEquals( 1, $objectToBeAddedOn->fields()->count() );
     }
 
     /** @test */
-    public function is_returning_self_when_adding_new_field() {
+    public function is_returning_field_when_adding_new_field() {
         $objectToBeAddedOn = new ObjectToBeAddedOn();
         $objectToBeAddedOn->save();
 
@@ -54,7 +56,7 @@ class FieldRepresenterTest extends TestCase
             'is_repeatable'=>false,
         ]);
 
-        $this->assertInstanceOf( ObjectToBeAddedOn::class, $returnValue );
+        $this->assertInstanceOf( FieldRepresenter::class, $returnValue );
     }
 
     /** @test */
@@ -101,8 +103,36 @@ class FieldRepresenterTest extends TestCase
         $this->assertEquals( '999', $representer->field_type_id );
     }
 
-    // Check if we can get all values for
+    // Check if we can get all values for this field
+    // Can get all values of field and if Valueable object is inseted we filter to that
     // Can change field positiong (Change order)
+    /** @test */
+    // public function is_updating_order_when_creating_new_field_representer() {
+        // $objectToBeAddedOn = new ObjectToBeAddedOn();
+        // $objectToBeAddedOn->save();
+
+        // $representer = $objectToBeAddedOn->addField( [
+            // 'name'=>'lijsef',
+            // 'field_type_id'=>'1',
+        // ] );
+        // $representerTwo = $objectToBeAddedOn->addField( [
+            // 'name'=>'lijsef',
+            // 'field_type_id'=>'1',
+        // ] );
+        // $representerThree = $objectToBeAddedOn->addField( [
+            // 'name'=>'lijsef',
+            // 'field_type_id'=>'1',
+        // ] );
+
+        // // dd( $representer );
+        // // dd( $representer->name );
+        // $this->assertEquals( 0, $representer->order );
+        // $this->assertEquals( 1, $representerTwo->order );
+        // $this->assertEquals( 2, $representerThree->order );
+    // }
+    /** @test */
+    public function can_change_field_position() {
+    }
     // Can access values from FieldRepresenter
     // A Representer can have FieldValues
     // A representer can be of type group (type_id==null?)
@@ -113,4 +143,8 @@ class FieldRepresenterTest extends TestCase
 
     // LATER
     // Can set a minium and maxium value for repeatable
+    //
+    // Use magic method for get to add
+    // $object->addImageField();
+    // $object->addTextField();
 }

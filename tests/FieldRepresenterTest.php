@@ -107,31 +107,34 @@ class FieldRepresenterTest extends TestCase
     // Can get all values of field and if Valueable object is inseted we filter to that
     // Can change field positiong (Change order)
     /** @test */
-    // public function is_updating_order_when_creating_new_field_representer() {
-        // $objectToBeAddedOn = new ObjectToBeAddedOn();
-        // $objectToBeAddedOn->save();
+    public function is_setting_order_when_creating_new_field_representer() {
+        $objectToBeAddedOn = new ObjectToBeAddedOn();
+        $objectToBeAddedOn->save();
 
-        // $representer = $objectToBeAddedOn->addField( [
-            // 'name'=>'lijsef',
-            // 'field_type_id'=>'1',
-        // ] );
-        // $representerTwo = $objectToBeAddedOn->addField( [
-            // 'name'=>'lijsef',
-            // 'field_type_id'=>'1',
-        // ] );
-        // $representerThree = $objectToBeAddedOn->addField( [
-            // 'name'=>'lijsef',
-            // 'field_type_id'=>'1',
-        // ] );
+        $representer = $objectToBeAddedOn->addField( [
+            'name'=>'lijsef',
+            'field_type_id'=>'1',
+        ] );
+        $representerTwo = $objectToBeAddedOn->addField( [
+            'name'=>'lijsef',
+            'field_type_id'=>'1',
+        ] );
+        $representerThree = $objectToBeAddedOn->addField( [
+            'name'=>'lijsef',
+            'field_type_id'=>'1',
+        ] );
 
-        // // dd( $representer );
-        // // dd( $representer->name );
-        // $this->assertEquals( 0, $representer->order );
-        // $this->assertEquals( 1, $representerTwo->order );
-        // $this->assertEquals( 2, $representerThree->order );
-    // }
+        // dd( $representer );
+        // dd( $representer->name );
+        $this->assertEquals( 0, $representer->order );
+        $this->assertEquals( 1, $representerTwo->order );
+        $this->assertEquals( 2, $representerThree->order );
+    }
     /** @test */
     public function can_change_field_position() {
+    }
+    /** @test */
+    public function is_updating_order_to_only_this_fieldable() {
     }
     // Can access values from FieldRepresenter
     // A Representer can have FieldValues

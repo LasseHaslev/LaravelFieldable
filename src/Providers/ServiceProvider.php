@@ -1,6 +1,8 @@
 <?php namespace LasseHaslev\LaravelFieldable\Providers;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use LasseHaslev\LaravelFieldable\FieldRepresenter;
+use LasseHaslev\LaravelFieldable\Observers\FieldRepresenterObserver;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -25,5 +27,6 @@ class ServiceProvider extends BaseServiceProvider
             __DIR__.'/../../config/fieldable.php'=>'fieldable',
         ]);
         $this->loadMigrationsFrom( __DIR__.'/../../database/migrations' );
+        FieldRepresenter::observe( FieldRepresenterObserver::class );
     }
 }

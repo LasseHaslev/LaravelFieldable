@@ -5,6 +5,6 @@
   },
   "scripts": {
       "test": "gulp",
-      "dev": "gulp watch"
+      "dev": "gulp tdd"
   }
 }

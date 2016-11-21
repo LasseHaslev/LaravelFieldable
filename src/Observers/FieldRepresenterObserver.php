@@ -33,7 +33,8 @@ class FieldRepresenterObserver
 
             if ( $representer->orderDiverged() ) {
 
-                if ( $representer->orderDifference() ) {
+                if ( $representer->orderDifference()  ) {
+
 
                 }
 

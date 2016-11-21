@@ -12,6 +12,7 @@ class OrderTraitTest extends TestCase
     protected $fieldOne;
     protected $fieldTwo;
     protected $fieldThree;
+    protected $fieldFour;
 
     /**
      * Setup the test environment.
@@ -23,15 +24,19 @@ class OrderTraitTest extends TestCase
         $this->objectToBeAddedOn = ObjectToBeAddedOn::create();
 
         $this->fieldOne = $this->objectToBeAddedOn->addField( [
-            'name'=>'lijsef',
+            'name'=>'one',
             'field_type_id'=>'1',
         ] );
         $this->fieldTwo = $this->objectToBeAddedOn->addField( [
-            'name'=>'lijsef',
+            'name'=>'two',
             'field_type_id'=>'1',
         ] );
         $this->fieldThree = $this->objectToBeAddedOn->addField( [
-            'name'=>'lijsef',
+            'name'=>'three',
+            'field_type_id'=>'1',
+        ] );
+        $this->fieldFour = $this->objectToBeAddedOn->addField( [
+            'name'=>'four',
             'field_type_id'=>'1',
         ] );
 
@@ -46,6 +51,7 @@ class OrderTraitTest extends TestCase
         $this->assertEquals( 0, $this->fieldOne->order );
         $this->assertEquals( 1, $this->fieldTwo->order );
         $this->assertEquals( 2, $this->fieldThree->order );
+        $this->assertEquals( 3, $this->fieldFour->order );
     }
     /** @test */
     public function is_setting_order_to_only_this_fieldable_so_we_do_not_touch_other_fieldable_types() {
@@ -68,6 +74,7 @@ class OrderTraitTest extends TestCase
         $this->assertEquals( 0, $fieldOne->order );
         $this->assertEquals( 1, $fieldTwo->order );
         $this->assertEquals( 2, $fieldThree->order );
+        $this->assertEquals( 3, $this->fieldFour->order );
 
     }
 
@@ -91,7 +98,6 @@ class OrderTraitTest extends TestCase
 
         $this->assertNotTrue( $this->fieldTwo->orderDiverged() );
 
-
         $this->fieldTwo->moveTo( 0 );
         $this->assertTrue( $this->fieldTwo->orderDiverged() );
 
@@ -105,6 +111,7 @@ class OrderTraitTest extends TestCase
         // $this->assertEquals( 2, $this->fieldOne->order );
         // $this->assertEquals( 0, $this->fieldTwo->order );
         // $this->assertEquals( 1, $this->fieldThree->order );
+        // $this->assertEquals( 3, $this->fieldFour->order );
 
     // }
     // Can access values from FieldRepresenter

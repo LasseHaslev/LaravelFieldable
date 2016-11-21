@@ -1,5 +1,9 @@
 const elixir = require('laravel-elixir');
 
+// Change path for this package to detect
+// changes in files in src folder
+elixir.config.appPath = 'src';
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management

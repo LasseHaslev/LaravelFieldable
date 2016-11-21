@@ -6,61 +6,69 @@
  */
 class OrderTraitTest extends TestCase
 {
+
+    protected $objectToBeAddedOn;
+
+    protected $fieldOne;
+    protected $fieldTwo;
+    protected $fieldThree;
+
+    /**
+     * Setup the test environment.
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->objectToBeAddedOn = ObjectToBeAddedOn::create();
+
+        $this->fieldOne = $this->objectToBeAddedOn->addField( [
+            'name'=>'lijsef',
+            'field_type_id'=>'1',
+        ] );
+        $this->fieldTwo = $this->objectToBeAddedOn->addField( [
+            'name'=>'lijsef',
+            'field_type_id'=>'1',
+        ] );
+        $this->fieldThree = $this->objectToBeAddedOn->addField( [
+            'name'=>'lijsef',
+            'field_type_id'=>'1',
+        ] );
+
+    }
+
     // Check if we can get all values for this field
     // Can get all values of field and if Valueable object is inseted we filter to that
     // Can change field positiong (Change order)
     /** @test */
-    public function is_setting_order_when_creating_new_field_representer() {
-        $objectToBeAddedOn = new ObjectToBeAddedOn();
-        $objectToBeAddedOn->save();
-
-        $representer = $objectToBeAddedOn->addField( [
-            'name'=>'lijsef',
-            'field_type_id'=>'1',
-        ] );
-        $representerTwo = $objectToBeAddedOn->addField( [
-            'name'=>'lijsef',
-            'field_type_id'=>'1',
-        ] );
-        $representerThree = $objectToBeAddedOn->addField( [
-            'name'=>'lijsef',
-            'field_type_id'=>'1',
-        ] );
-
-        // dd( $representer );
-        // dd( $representer->name );
-        $this->assertEquals( 0, $representer->order );
-        $this->assertEquals( 1, $representerTwo->order );
-        $this->assertEquals( 2, $representerThree->order );
+    public function is_setting_order_when_creating_new_field_field() {
+        // dd( $field );
+        // dd( $fieldOne->name );
+        $this->assertEquals( 0, $this->fieldOne->order );
+        $this->assertEquals( 1, $this->fieldTwo->order );
+        $this->assertEquals( 2, $this->fieldThree->order );
     }
     /** @test */
     public function is_setting_order_to_only_this_fieldable_so_we_do_not_touch_other_fieldable_types() {
         $earlierObject = ObjectToBeAddedOn::create();
-        $earlierObject->addField([
-            'name'=>'lisjeflijsef',
-        ]);
 
-        $objectToBeAddedOn = new ObjectToBeAddedOn();
-        $objectToBeAddedOn->save();
-
-        $representer = $objectToBeAddedOn->addField( [
+        $fieldOne = $earlierObject->addField( [
             'name'=>'lijsef',
             'field_type_id'=>'1',
         ] );
-        $representerTwo = $objectToBeAddedOn->addField( [
+        $fieldTwo = $earlierObject->addField( [
             'name'=>'lijsef',
             'field_type_id'=>'1',
         ] );
-        $representerThree = $objectToBeAddedOn->addField( [
+        $fieldThree = $earlierObject->addField( [
             'name'=>'lijsef',
             'field_type_id'=>'1',
         ] );
 
-        // dd( $representer );
-        // dd( $representer->name );
-        $this->assertEquals( 0, $representer->order );
-        $this->assertEquals( 1, $representerTwo->order );
-        $this->assertEquals( 2, $representerThree->order );
+        // dd( $fieldOne->name );
+        $this->assertEquals( 0, $fieldOne->order );
+        $this->assertEquals( 1, $fieldTwo->order );
+        $this->assertEquals( 2, $fieldThree->order );
 
     }
     /** @test */
@@ -74,31 +82,31 @@ class OrderTraitTest extends TestCase
         // $objectToBeAddedOn = new ObjectToBeAddedOn();
         // $objectToBeAddedOn->save();
 
-        // $representer = $objectToBeAddedOn->addField( [
+        // $field = $objectToBeAddedOn->addField( [
             // 'name'=>'lijsef',
             // 'field_type_id'=>'1',
         // ] );
-        // $representerTwo = $objectToBeAddedOn->addField( [
+        // $fieldTwo = $objectToBeAddedOn->addField( [
             // 'name'=>'lijsef',
             // 'field_type_id'=>'1',
         // ] );
-        // $representerThree = $objectToBeAddedOn->addField( [
+        // $fieldThree = $objectToBeAddedOn->addField( [
             // 'name'=>'lijsef',
             // 'field_type_id'=>'1',
         // ] );
 
-        // $representer->moveTo( 2 );
+        // $fieldOne->moveTo( 2 );
 
-        // $this->assertEquals( 2, $representer->order );
-        // $this->assertEquals( 0, $representerTwo->order );
-        // $this->assertEquals( 1, $representerThree->order );
+        // $this->assertEquals( 2, $fieldOne->order );
+        // $this->assertEquals( 0, $fieldTwo->order );
+        // $this->assertEquals( 1, $fieldThree->order );
 
     // }
     // Can access values from FieldRepresenter
     // A Representer can have FieldValues
-    // A representer can be of type group (type_id==null?)
-    // A group can have representers
-    // A normal field can not have any field representer
+    // A field can be of type group (type_id==null?)
+    // A group can have fields
+    // A normal field can not have any field field
 
     // Write logic to handle the trait to add/handle FieldValue
 

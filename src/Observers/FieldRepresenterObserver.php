@@ -18,10 +18,19 @@ class FieldRepresenterObserver
      */
     public function creating($representer)
     {
-        if ( isset( $representer->order ) ) return;
 
-        $representer->order = FieldRepresenter::where( 'fieldable_type', $representer->fieldable_type )
-            ->where( 'fieldable_id', $representer->fieldable_id )->count();
+        $representer->moveToBack();
     }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function saving( $representer )
+    {
+        // dd( $representer );
+    }
+
 
 }

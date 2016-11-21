@@ -4,9 +4,12 @@ namespace LasseHaslev\LaravelFieldable;
 
 use App\Modules\Ads\FormatImageInfo;
 use Illuminate\Database\Eloquent\Model;
+use LasseHaslev\LaravelFieldable\Traits\Orderable;
 
 class FieldRepresenter extends Model
 {
+
+    use Orderable;
 
     protected $table = 'field_representers';
 
@@ -90,5 +93,18 @@ class FieldRepresenter extends Model
     {
         return $this->hasMany( FormatImageInfo::class );
     }
+
+    /**
+     * Change order
+     *
+     * @return void
+     */
+    public function moveTo( int $position )
+    {
+        $this->order = $position;
+        $this->save();
+        return $this;
+    }
+
 
 }

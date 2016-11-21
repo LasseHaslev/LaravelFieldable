@@ -95,16 +95,14 @@ class FieldRepresenter extends Model
     }
 
     /**
-     * Change order
+     * Get Field Representer that has the same parent as this
      *
      * @return void
      */
-    public function moveTo( int $position )
+    public function getEquels()
     {
-        $this->order = $position;
-        $this->save();
-        return $this;
+        return FieldRepresenter::where( 'fieldable_type', $this->fieldable_type )
+            ->where( 'fieldable_id', $this->fieldable_id );
     }
-
 
 }

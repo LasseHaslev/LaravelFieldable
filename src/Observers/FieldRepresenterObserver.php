@@ -29,8 +29,17 @@ class FieldRepresenterObserver
      */
     public function saving( $representer )
     {
-        // dd( $representer );
-    }
+        if ($representer->exists()) {
 
+            if ( $representer->orderDiverged() ) {
+
+                if ( $representer->orderDifference() ) {
+
+                }
+
+            }
+
+        }
+    }
 
 }

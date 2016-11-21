@@ -42,7 +42,6 @@ class OrderTraitTest extends TestCase
     // Can change field positiong (Change order)
     /** @test */
     public function is_setting_order_when_creating_new_field_field() {
-        // dd( $field );
         // dd( $fieldOne->name );
         $this->assertEquals( 0, $this->fieldOne->order );
         $this->assertEquals( 1, $this->fieldTwo->order );
@@ -71,35 +70,41 @@ class OrderTraitTest extends TestCase
         $this->assertEquals( 2, $fieldThree->order );
 
     }
+
+
+    /** @test */
+    public function can_get_order_diferenceial() {
+
+        $this->fieldTwo->moveTo( 0 );
+        $this->assertEquals( -1, $this->fieldTwo->orderDifference() );
+
+        $this->fieldTwo->moveTo( 1 );
+        $this->assertEquals( 0, $this->fieldTwo->orderDifference() );
+
+        $this->fieldTwo->moveTo( 2 );
+        $this->assertEquals( 1, $this->fieldTwo->orderDifference() );
+
+    }
+
+    /** @test */
+    public function can_check_if_the_order_has_diverged_from_original() {
+
+        $this->assertNotTrue( $this->fieldTwo->orderDiverged() );
+
+
+        $this->fieldTwo->moveTo( 0 );
+        $this->assertTrue( $this->fieldTwo->orderDiverged() );
+
+    }
     /** @test */
     // public function can_change_field_position() {
 
-        // $earlierObject = ObjectToBeAddedOn::create();
-        // $earlierObject->addField([
-            // 'name'=>'lisjeflijsef',
-        // ]);
+        // $this->fieldOne->moveTo( 2 )
+            // ->save();
 
-        // $objectToBeAddedOn = new ObjectToBeAddedOn();
-        // $objectToBeAddedOn->save();
-
-        // $field = $objectToBeAddedOn->addField( [
-            // 'name'=>'lijsef',
-            // 'field_type_id'=>'1',
-        // ] );
-        // $fieldTwo = $objectToBeAddedOn->addField( [
-            // 'name'=>'lijsef',
-            // 'field_type_id'=>'1',
-        // ] );
-        // $fieldThree = $objectToBeAddedOn->addField( [
-            // 'name'=>'lijsef',
-            // 'field_type_id'=>'1',
-        // ] );
-
-        // $fieldOne->moveTo( 2 );
-
-        // $this->assertEquals( 2, $fieldOne->order );
-        // $this->assertEquals( 0, $fieldTwo->order );
-        // $this->assertEquals( 1, $fieldThree->order );
+        // $this->assertEquals( 2, $this->fieldOne->order );
+        // $this->assertEquals( 0, $this->fieldTwo->order );
+        // $this->assertEquals( 1, $this->fieldThree->order );
 
     // }
     // Can access values from FieldRepresenter

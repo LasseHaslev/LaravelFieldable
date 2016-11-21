@@ -20,8 +20,39 @@ trait Orderable
     {
         if ( isset( $this->order ) ) return;
 
-        $this->order = FieldRepresenter::where( 'fieldable_type', $this->fieldable_type )
-            ->where( 'fieldable_id', $this->fieldable_id )->count();
+        $this->order = $this->getEquels()->count();
+    }
+
+    /**
+     * Check if the order has diverged from original order
+     *
+     * @return boolean
+     */
+    public function orderDiverged()
+    {
+        return $this->orderDifference() != 0;
+    }
+
+    /**
+     * Get the differencial between the original and wanted value
+     *
+     * @return void
+     */
+    public function orderDifference()
+    {
+        return $this->order - $this->getOriginal( 'order' );
+    }
+
+
+    /**
+     * Change order
+     *
+     * @return void
+     */
+    public function moveTo( int $position )
+    {
+        $this->order = $position;
+        return $this;
     }
 
 

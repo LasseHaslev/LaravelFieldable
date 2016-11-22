@@ -2,6 +2,7 @@
 
 use LasseHaslev\LaravelFieldable\FieldType;
 use LasseHaslev\LaravelFieldable\FieldRepresenter;
+use LasseHaslev\LaravelFieldable\FieldValue;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,14 @@ $factory->define(FieldRepresenter::class, function (Faker\Generator $faker) {
         'field_type_id' => $fieldType->id,
         'description' => $faker->paragraph,
         'is_repeatable' => $faker->boolean( 30 ),
+    ];
+});
+$factory->define(FieldValue::class, function (Faker\Generator $faker) {
+
+    $representer = factory( FieldRepresenter::class )->create();
+
+    return [
+        'value'=> $faker->numberBetween( 1, 1000 ),
+        'field_representer_id' => $representer->id,
     ];
 });

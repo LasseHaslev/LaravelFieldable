@@ -15,6 +15,11 @@ class FieldRepresenterGroupTest extends TestCase
      */
     protected $fieldType;
 
+    /**
+     * @var mixed
+     */
+    protected $objectToBeAddedOn;
+
 
     /**
      * Setup testing
@@ -25,6 +30,7 @@ class FieldRepresenterGroupTest extends TestCase
     {
         parent::setUp();
         $this->fieldType = factory( FieldType::class )->create();
+        $this->objectToBeAddedOn = ObjectToBeAddedOn::create();
     }
 
 
@@ -62,11 +68,36 @@ class FieldRepresenterGroupTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function can_add_a_new_group_on_fieldable() {
+
+        $this->objectToBeAddedOn->addField( [
+            'field_type'=>null,
+        ] );
+
+        $this->assertEquals( 1, $this->objectToBeAddedOn->fields()->count() );
+        $this->assertTrue( $this->objectToBeAddedOn->fields()->first()->isGroup() );
+    }
+
     // Have config for checking if groups are allowed
-    // Can add a new group on fieldable
 
     // We can only add multiple group if repeatable_is true
+    // ( Can this be a problem? Linking values )
 
-    // A group can have representers
+    // A group can have Group
+    /** @test */
+    public function a_group_can_add_a_new_group() {
+        $group = $this->objectToBeAddedOn->addField( [
+            'field_type'=>null,
+        ] );
+
+        $newGroup = $group->addField( [
+            'field_type'=>null,
+        ] );
+
+        $this->assertEquals( 1, $group->fields()->count() );
+        $this->assertTrue( $group->fields()->first()->isGroup() );
+    }
+
     // A normal field can not have any field representers
 }

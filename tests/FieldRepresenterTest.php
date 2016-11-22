@@ -134,4 +134,15 @@ class FieldRepresenterTest extends TestCase
         $this->assertEquals( 1, FieldRepresenter::equals( $firstField->fieldable_type, $firstField->fieldable_id )->count() );
         $this->assertEquals( 2, $field->getEquals()->count() );
     }
+    // Can access values from FieldRepresenter
+    // A Representer can have FieldValues
+
+    // Write logic to handle the trait to add/handle FieldValue
+
+    // LATER
+    // Can set a minium and maxium value for repeatable
+
+    // Use magic method for get to add
+    // $object->addImageField();
+    // $object->addTextField();
 }

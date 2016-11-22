@@ -115,5 +115,15 @@ class FieldRepresenter extends Model
             ->where( 'fieldable_id', $id );
     }
 
+    /**
+     * Check if field is group
+     *
+     * @return boolean
+     */
+    public function isGroup()
+    {
+        return $this->field_type_id == null;
+    }
+
 
 }

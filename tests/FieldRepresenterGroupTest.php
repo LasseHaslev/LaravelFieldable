@@ -65,6 +65,8 @@ class FieldRepresenterGroupTest extends TestCase
     // Have config for checking if groups are allowed
     // Can add a new group on fieldable
 
+    // We can only add multiple group if repeatable_is true
+
     // A group can have representers
     // A normal field can not have any field representers
 }

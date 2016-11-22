@@ -59,7 +59,7 @@ class FieldRepresenterGroupTest extends TestCase
     }
 
     /** @test */
-    public function a_field_cannot_have_representers() {
+    public function a_normal_field_cannot_have_representers() {
         $this->expectException( HttpException::class );
         $field = FieldRepresenter::create(['field_type_id'=>$this->fieldType->id]);
 
@@ -72,14 +72,45 @@ class FieldRepresenterGroupTest extends TestCase
     public function can_add_a_new_group_on_fieldable() {
 
         $this->objectToBeAddedOn->addField( [
-            'field_type'=>null,
+            'field_type_id'=>null,
         ] );
 
         $this->assertEquals( 1, $this->objectToBeAddedOn->fields()->count() );
         $this->assertTrue( $this->objectToBeAddedOn->fields()->first()->isGroup() );
     }
 
-    // Have config for checking if groups are allowed
+    /** @test */
+    public function allow_adding_of_new_group_if_config_says_its_allowed() {
+        Config::set( 'fieldable.groups', true );
+
+        $this->objectToBeAddedOn->addField( [
+            'field_type_id'=>null,
+        ] );
+
+        $this->assertEquals( 1, $this->objectToBeAddedOn->fields()->count() );
+    }
+    /** @test */
+    public function prevent_adding_of_new_group_if_config_says_its_not_allowed() {
+        $this->expectException( HttpException::class );
+
+        Config::set( 'fieldable.groups', false );
+
+        $this->objectToBeAddedOn->addField( [
+            'field_type_id'=>null,
+        ] );
+
+        $this->assertEquals( 1, $this->objectToBeAddedOn->fields()->count() );
+    }
+    /** @test */
+    public function allow_adding_of_new_normal_field_if_config_says_groups_not_allowed() {
+        Config::set( 'fieldable.groups', false );
+
+        $this->objectToBeAddedOn->addField( [
+            'field_type_id'=>$this->fieldType->id,
+        ] );
+
+        $this->assertEquals( 1, $this->objectToBeAddedOn->fields()->count() );
+    }
 
     // We can only add multiple group if repeatable_is true
     // ( Can this be a problem? Linking values )
@@ -88,16 +119,14 @@ class FieldRepresenterGroupTest extends TestCase
     /** @test */
     public function a_group_can_add_a_new_group() {
         $group = $this->objectToBeAddedOn->addField( [
-            'field_type'=>null,
+            'field_type_id'=>null,
         ] );
 
         $newGroup = $group->addField( [
-            'field_type'=>null,
+            'field_type_id'=>null,
         ] );
 
         $this->assertEquals( 1, $group->fields()->count() );
         $this->assertTrue( $group->fields()->first()->isGroup() );
     }
-
-    // A normal field can not have any field representers
 }

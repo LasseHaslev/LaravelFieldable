@@ -19,6 +19,10 @@ class FieldRepresenterObserver
     public function creating($representer)
     {
 
+        if ( ! config( 'fieldable.groups' ) && $representer->isGroup() ) {
+            abort( 405, 'Groups are is set to not allowed in config. This means field_type_id cannot be set to null.' );
+        }
+
         $representer->moveToBack();
     }
 

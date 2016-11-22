@@ -5,10 +5,12 @@ namespace LasseHaslev\LaravelFieldable;
 use App\Modules\Ads\FormatImageInfo;
 use Illuminate\Database\Eloquent\Model;
 use LasseHaslev\LaravelFieldable\Traits\Orderable;
+use LasseHaslev\LaravelFieldable\Traits\Fieldable;
 
 class FieldRepresenter extends Model
 {
 
+    use Fieldable;
     use Orderable;
 
     protected $table = 'field_representers';
@@ -113,6 +115,19 @@ class FieldRepresenter extends Model
     {
         return $query->where( 'fieldable_type', $type )
             ->where( 'fieldable_id', $id );
+    }
+
+    /**
+     * Add new field
+     *
+     * @return void
+     */
+    public function addField( array $attributes = [] )
+    {
+        if ( ! $this->isGroup() ) {
+            abort( 405, 'A a field representer can not be fieldable unless it is a group (field_type_id=null)' );
+        }
+        return $this->fields()->create( $attributes );
     }
 
     /**

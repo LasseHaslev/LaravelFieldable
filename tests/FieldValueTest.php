@@ -14,6 +14,7 @@ class FieldValueTest extends TestCase
         $value = factory( FieldValue::class )->create();
         $this->assertInstanceOf( FieldValue::class, $value );
     }
+    // Add Valueable trait
     // Check if we can use a value formater to format value
     // This should have a store and get function
     // etc. image.id to image object and image object to image.id

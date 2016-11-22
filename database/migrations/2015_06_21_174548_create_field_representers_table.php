@@ -38,15 +38,15 @@ class CreateFieldRepresentersTable extends Migration
                 ->unsigned()
                 ->default(0);
 
-            // $table->boolean( 'is_group' );
-            // $table->integer('field_representer_id')
-                // ->unsigned()
-                // ->nullable()
-                // ->index();
-            // $table->foreign('field_representer_id')
-                // ->references('id')
-                // ->on('field_representers')
-                // ->onDelete('cascade');
+            // For handeling groups
+            $table->integer('field_representer_id')
+                ->unsigned()
+                ->nullable()
+                ->index();
+            $table->foreign('field_representer_id')
+                ->references('id')
+                ->on('field_representers')
+                ->onDelete('cascade');
 
             $table->integer('fieldable_id')
                 ->unsigned()

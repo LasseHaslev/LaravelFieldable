@@ -2,6 +2,11 @@
 
 use LasseHaslev\LaravelFieldable\FieldRepresenter;
 use LasseHaslev\LaravelFieldable\FieldValue;
+use LasseHaslev\LaravelFieldable\FieldType;
+
+class ValueableClass extends FieldType
+{
+}
 
 /**
  * Class FieldRepresenterTest

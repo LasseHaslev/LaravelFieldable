@@ -102,4 +102,36 @@ class FieldRepresenterTest extends TestCase
         $this->assertEquals( 'name', $representer->name );
         $this->assertEquals( '999', $representer->field_type_id );
     }
+
+    /** @test */
+    public function can_get_equals() {
+        $objectToBeAddedOn = new ObjectToBeAddedOn();
+        $objectToBeAddedOn->save();
+
+        $firstField = $objectToBeAddedOn->addField([
+            'name'=>'Field name',
+            'identifier'=>'identifier',
+            'description'=>'Description',
+            'is_repeatable'=>false,
+        ]);
+
+        $new = new ObjectToBeAddedOn();
+        $new->save();
+
+        $field = $new->addField([
+            'name'=>'Field name',
+            'identifier'=>'identifier',
+            'description'=>'Description',
+            'is_repeatable'=>false,
+        ]);
+        $fieldTwo = $new->addField([
+            'name'=>'Field name',
+            'identifier'=>'identifier',
+            'description'=>'Description',
+            'is_repeatable'=>false,
+        ]);
+
+        $this->assertEquals( 1, FieldRepresenter::equals( $firstField->fieldable_type, $firstField->fieldable_id )->count() );
+        $this->assertEquals( 2, $field->getEquals()->count() );
+    }
 }

@@ -14,6 +14,8 @@ class OrderTraitTest extends TestCase
     protected $fieldThree;
     protected $fieldFour;
 
+    protected $fields;
+
     /**
      * Setup the test environment.
      */
@@ -23,19 +25,19 @@ class OrderTraitTest extends TestCase
 
         $this->objectToBeAddedOn = ObjectToBeAddedOn::create();
 
-        $this->fieldOne = $this->objectToBeAddedOn->addField( [
+        $this->fields[] = $this->fieldOne = $this->objectToBeAddedOn->addField( [
             'name'=>'one',
             'field_type_id'=>'1',
         ] );
-        $this->fieldTwo = $this->objectToBeAddedOn->addField( [
+        $this->fields[] = $this->fieldTwo = $this->objectToBeAddedOn->addField( [
             'name'=>'two',
             'field_type_id'=>'1',
         ] );
-        $this->fieldThree = $this->objectToBeAddedOn->addField( [
+        $this->fields[] = $this->fieldThree = $this->objectToBeAddedOn->addField( [
             'name'=>'three',
             'field_type_id'=>'1',
         ] );
-        $this->fieldFour = $this->objectToBeAddedOn->addField( [
+        $this->fields[] = $this->fieldFour = $this->objectToBeAddedOn->addField( [
             'name'=>'four',
             'field_type_id'=>'1',
         ] );
@@ -103,29 +105,95 @@ class OrderTraitTest extends TestCase
 
     }
     /** @test */
-    public function can_change_field_position() {
+    public function can_move_to_position() {
 
         $this->fieldOne->moveTo( 2 )
             ->save();
 
+        $this->reloadModels();
+
+        // Check
         $this->assertEquals( 2, $this->fieldOne->order );
         $this->assertEquals( 0, $this->fieldTwo->order );
         $this->assertEquals( 1, $this->fieldThree->order );
         $this->assertEquals( 3, $this->fieldFour->order );
 
+        $this->fieldOne->moveTo( 1 )
+            ->save();
+        $this->reloadModels();
+
+        // Check
+        $this->assertEquals( 1, $this->fieldOne->order );
+        $this->assertEquals( 0, $this->fieldTwo->order );
+        $this->assertEquals( 2, $this->fieldThree->order );
+        $this->assertEquals( 3, $this->fieldFour->order );
+
     }
-    // Can access values from FieldRepresenter
-    // A Representer can have FieldValues
-    // A field can be of type group (type_id==null?)
-    // A group can have fields
-    // A normal field can not have any field field
 
-    // Write logic to handle the trait to add/handle FieldValue
+    /** @test */
+    public function can_increase_positon_by_one() {
+        $this->fieldOne->moveUp()
+            ->save();
+        $this->reloadModels();
 
-    // LATER
-    // Can set a minium and maxium value for repeatable
-    //
-    // Use magic method for get to add
-    // $object->addImageField();
-    // $object->addTextField();
+        // Check
+        $this->assertEquals( 1, $this->fieldOne->order );
+        $this->assertEquals( 0, $this->fieldTwo->order );
+        $this->assertEquals( 2, $this->fieldThree->order );
+        $this->assertEquals( 3, $this->fieldFour->order );
+    }
+
+    /** @test */
+    public function can_decrease_positon_by_one() {
+        $this->fieldTwo->moveDown()
+            ->save();
+
+        $this->reloadModels();
+
+        // Check
+        $this->assertEquals( 1, $this->fieldOne->order );
+        $this->assertEquals( 0, $this->fieldTwo->order );
+        $this->assertEquals( 2, $this->fieldThree->order );
+        $this->assertEquals( 3, $this->fieldFour->order );
+    }
+
+    /** @test */
+    public function order_cannot_go_below_zero() {
+        $this->fieldOne->moveDown()
+            ->save();
+
+        $this->reloadModels();
+        $this->assertEquals( 0, $this->fieldOne->order );
+
+        $this->fieldTwo->moveTo(-1)
+            ->save();
+
+        $this->reloadModels();
+        $this->assertEquals( 0, $this->fieldTwo->order );
+    }
+
+    /** @test */
+    public function order_cannot_go_above_max_numbers() {
+        $this->fieldFour->moveUp()
+            ->save();
+
+        $this->reloadModels();
+        $this->assertEquals( 3, $this->fieldFour->order );
+
+        $this->fieldTwo->moveTo(10)
+            ->save();
+
+        $this->reloadModels();
+        $this->assertEquals( 0, $this->fieldOne->order );
+        $this->assertEquals( 3, $this->fieldTwo->order );
+        $this->assertEquals( 1, $this->fieldThree->order );
+        $this->assertEquals( 2, $this->fieldFour->order );
+    }
+
+    protected function reloadModels() {
+        $this->fieldOne = $this->fieldOne->fresh();
+        $this->fieldTwo = $this->fieldTwo->fresh();
+        $this->fieldThree = $this->fieldThree->fresh();
+        $this->fieldFour = $this->fieldFour->fresh();
+    }
 }

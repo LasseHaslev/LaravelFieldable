@@ -51,7 +51,41 @@ trait Orderable
      */
     public function moveTo( int $position )
     {
+        $maxCount = $this->getEquals()->count()-1;
+        if ( $position <= 0 ) {
+            $position = 0;
+        }
+        if ( $position >= $maxCount ) {
+            $position = $maxCount;
+        }
         $this->order = $position;
+        return $this;
+    }
+
+    /**
+     * Move position one up
+     *
+     * @return $this
+     */
+    public function moveUp()
+    {
+        $maxCount = $this->getEquals()->count()-1;
+        if ( $this->order < $maxCount ) {
+            $this->order++;
+        }
+        return $this;
+    }
+
+    /**
+     * Move position one up
+     *
+     * @return $this
+     */
+    public function moveDown()
+    {
+        if ( $this->order > 0 ) {
+            $this->order--;
+        }
         return $this;
     }
 

@@ -37,7 +37,19 @@ class FieldRepresenterObserver
 
                     // Is increasing order
                     if ( $representer->orderDifference() > 0 ) {
-                        // $representer->getEquals()->where(  )
+                        // dd([ $representer->getOriginal( 'order' ), $representer->order ]);
+                        $return = $representer->getEquals()->get();
+                        $representer->getEquals()
+                            ->where( 'order', '>=', $representer->getOriginal('order') )
+                            ->where( 'order', '<=', $representer->order )
+                            ->decrement('order');
+                    }
+                    // Is decreasing order
+                    else {
+                        $representer->getEquals()
+                            ->where( 'order', '>=', $representer->order )
+                            ->where( 'order', '<=', $representer->getOriginal('order') )
+                            ->increment('order');
                     }
 
                 }

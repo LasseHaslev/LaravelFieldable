@@ -35,6 +35,10 @@ class FieldRepresenterObserver
 
                 if ( $representer->orderDifference()  ) {
 
+                    // Is increasing order
+                    if ( $representer->orderDifference() > 0 ) {
+                        // $representer->getEquals()->where(  )
+                    }
 
                 }
 

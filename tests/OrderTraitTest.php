@@ -103,17 +103,17 @@ class OrderTraitTest extends TestCase
 
     }
     /** @test */
-    // public function can_change_field_position() {
+    public function can_change_field_position() {
 
-        // $this->fieldOne->moveTo( 2 )
-            // ->save();
+        $this->fieldOne->moveTo( 2 )
+            ->save();
 
-        // $this->assertEquals( 2, $this->fieldOne->order );
-        // $this->assertEquals( 0, $this->fieldTwo->order );
-        // $this->assertEquals( 1, $this->fieldThree->order );
-        // $this->assertEquals( 3, $this->fieldFour->order );
+        $this->assertEquals( 2, $this->fieldOne->order );
+        $this->assertEquals( 0, $this->fieldTwo->order );
+        $this->assertEquals( 1, $this->fieldThree->order );
+        $this->assertEquals( 3, $this->fieldFour->order );
 
-    // }
+    }
     // Can access values from FieldRepresenter
     // A Representer can have FieldValues
     // A field can be of type group (type_id==null?)

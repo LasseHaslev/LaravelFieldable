@@ -20,7 +20,7 @@ trait Orderable
     {
         if ( isset( $this->order ) ) return;
 
-        $this->order = $this->getEquels()->count();
+        $this->order = $this->getEquals()->count();
     }
 
     /**

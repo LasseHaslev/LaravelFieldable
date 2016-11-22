@@ -99,10 +99,21 @@ class FieldRepresenter extends Model
      *
      * @return void
      */
-    public function getEquels()
+    public function getEquals()
     {
-        return FieldRepresenter::where( 'fieldable_type', $this->fieldable_type )
-            ->where( 'fieldable_id', $this->fieldable_id );
+        return static::equals( $this->fieldable_type, $this->fieldable_id );
     }
+
+    /**
+     * Query the same parent as this
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEquals($query, $type, $id)
+    {
+        return $query->where( 'fieldable_type', $type )
+            ->where( 'fieldable_id', $id );
+    }
+
 
 }

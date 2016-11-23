@@ -62,5 +62,20 @@ class FieldValue extends Model
         return $this;
     }
 
+    /**
+     * Save the model to the database.
+     *
+     * @param  array  $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        if ( ! $this->valueable ) {
+            $this->to( $this->representer->fieldable );
+        }
+        // // if ( ! $this->valueable )
+        parent::save( $options );
+    }
+
 
 }

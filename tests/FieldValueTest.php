@@ -8,7 +8,7 @@ use LasseHaslev\LaravelFieldable\Traits\Fieldable;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class NonValueableClass extends FieldType {};
-class ValueableAndFieldableClass extends FieldRepresenter{
+class FieldableAndValueable extends FieldRepresenter{
     use Valueable, Fieldable;
 }
 class ValueableClass extends FieldType
@@ -97,9 +97,23 @@ class FieldValueTest extends TestCase
     }
 
     /** @test */
-    public function can_set_value_to_element_that_owns_fieldable_if_it_also_is_valueable() {
-        $this->field->setValue( 1 )
+    public function is_adding_value_to_field_representer_parent_if_no_to_funciton_is_provided() {
+
+
+        $fieldableAndValueable = FieldableAndValueable::create();
+        $field = $fieldableAndValueable->addField( [
+            'name'=>'name',
+            'field_type_id'=>1,
+        ] );
+
+        $field->setValue( 1 )
             ->save();
+
+        $parent = $field->fieldable;
+
+        // dd($parent);
+        $this->assertEquals( 1, $parent->fields()->count() );
+        $this->assertEquals( 1, $parent->values()->count() );
     }
 
     /** @test */

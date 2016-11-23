@@ -152,5 +152,4 @@ class FieldRepresenter extends Model
         return $valueObject;
     }
 
-
 }

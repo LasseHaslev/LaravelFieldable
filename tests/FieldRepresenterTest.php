@@ -45,6 +45,10 @@ class FieldRepresenterTest extends TestCase
     }
 
     /** @test */
+    public function can_only_add_field_representer_on_element_that_has_fieldable_trait() {
+    }
+
+    /** @test */
     public function is_returning_field_when_adding_new_field() {
         $objectToBeAddedOn = new ObjectToBeAddedOn();
         $objectToBeAddedOn->save();

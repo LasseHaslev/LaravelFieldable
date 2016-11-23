@@ -24,6 +24,7 @@ $factory->define(FieldType::class, function (Faker\Generator $faker) {
 $factory->define(FieldRepresenter::class, function (Faker\Generator $faker) {
 
     $fieldType = factory( FieldType::class )->create();
+    $parent = factory( FieldType::class )->create();
 
     return [
         'name' => $faker->name,
@@ -31,14 +32,21 @@ $factory->define(FieldRepresenter::class, function (Faker\Generator $faker) {
         'field_type_id' => $fieldType->id,
         'description' => $faker->paragraph,
         'is_repeatable' => $faker->boolean( 30 ),
+
+        'fieldable_type' => FieldType::class,
+        'fieldable_id' => $parent->id,
     ];
 });
 $factory->define(FieldValue::class, function (Faker\Generator $faker) {
 
     $representer = factory( FieldRepresenter::class )->create();
+    $parent = factory( FieldType::class )->create();
 
     return [
         'value'=> $faker->numberBetween( 1, 1000 ),
         'field_representer_id' => $representer->id,
+
+        'valueable_type' => FieldType::class,
+        'valueable_id' => $parent->id,
     ];
 });

@@ -144,6 +144,16 @@ class FieldValueTest extends TestCase
 
     /** @test */
     public function prevent_adding_of_multiple_values_if_repeatable_is_false() {
+        $field = $this->fieldableAndValueable->addField([
+            'is_repeatable'=>false,
+        ]);
+        $field->addValue( 1 )
+            ->save();
+
+        $field->addValue( 2 )
+            ->save();
+
+        $this->assertEquals( 1, $this->fieldableAndValueable->values()->count() );
     }
 
     // Check if we can use a value formater to format value

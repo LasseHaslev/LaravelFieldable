@@ -157,8 +157,21 @@ class FieldRepresenter extends Model
      */
     public function addValue( $value )
     {
-        $valueObject = ( new FieldValue )->setRepresenter( $this );
+
+        if ( $this->is_repeatable ) {
+            $valueObject = ( new FieldValue )->setRepresenter( $this );
+        }
+        else {
+            if ( ! $this->values()->count() ) {
+                $valueObject = ( new FieldValue )->setRepresenter( $this );
+            }
+            else {
+                $valueObject = $this->values()->first();
+            }
+        }
+
         $valueObject->value = $value;
+
         return $valueObject;
     }
 

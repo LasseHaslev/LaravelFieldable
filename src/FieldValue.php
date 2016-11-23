@@ -53,6 +53,11 @@ class FieldValue extends Model
      */
     public function to( $valueable )
     {
+
+        if ( ! method_exists( $valueable, 'isValueable' ) ) {
+            abort( 405, 'You can only add a value to a class that uses LasseHaslev\LaravelFieldable\Traits\Valueable' );
+        }
+
         $this->valueable()->associate( $valueable );
         return $this;
     }

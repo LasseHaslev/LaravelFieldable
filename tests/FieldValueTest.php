@@ -4,7 +4,13 @@ use LasseHaslev\LaravelFieldable\FieldRepresenter;
 use LasseHaslev\LaravelFieldable\FieldValue;
 use LasseHaslev\LaravelFieldable\FieldType;
 use LasseHaslev\LaravelFieldable\Traits\Valueable;
+use LasseHaslev\LaravelFieldable\Traits\Fieldable;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
+class NonValueableClass extends FieldType {};
+class ValueableAndFieldableClass extends FieldRepresenter{
+    use Valueable, Fieldable;
+}
 class ValueableClass extends FieldType
 {
     use Valueable;
@@ -45,6 +51,11 @@ class FieldValueTest extends TestCase
     }
 
     /** @test */
+    public function valueable_has_function_to_check_if_it_is_valueable() {
+        $this->assertTrue( $this->valueable->isValueable() );
+    }
+
+    /** @test */
     public function is_setting_field_to_value_when_running_set_value_to_representer() {
         $value = $this->field->setValue( 1 );
         $this->assertInstanceOf( FieldRepresenter::class, $value->representer );
@@ -66,30 +77,29 @@ class FieldValueTest extends TestCase
 
     /** @test */
     public function can_set_value_to_valueable() {
-
         $this->field->setValue( 1 )
             ->to( $this->valueable )
             ->save();
 
         $this->assertEquals( 1, $this->field->values()->count() );
         $this->assertEquals( 1, $this->valueable->values()->count() );
-
     }
 
     /** @test */
     public function can_only_set_value_to_valueable() {
+        $this->expectException( HttpException::class );
 
-    }
+        $nonValueable = NonValueableClass::create();
 
-    /** @test */
-    public function valueable_has_function_to_check_if_it_is_valueable() {
-        $this->assertTrue( $this->valueable->isValueable() );
+        $value = $this->field->setValue( 1 )
+            ->to( $nonValueable )
+            ->save();
     }
 
     /** @test */
     public function can_set_value_to_element_that_owns_fieldable_if_it_also_is_valueable() {
-        // $this->field->setValue( 1 )
-            // ->save();
+        $this->field->setValue( 1 )
+            ->save();
     }
 
     /** @test */

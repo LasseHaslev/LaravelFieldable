@@ -25,11 +25,13 @@ class FieldValueTest extends TestCase
     private $value;
     protected $field;
     protected $valueable;
+    protected $fieldableAndValueable;
 
 
     public function setUp() {
         parent::setUp();
         $this->valueable = ValueableClass::create();
+        $this->fieldableAndValueable = FieldableAndValueable::create();
         $this->value = factory( FieldValue::class )->create();
         $this->field = factory( FieldRepresenter::class )->create();
     }
@@ -117,13 +119,33 @@ class FieldValueTest extends TestCase
     }
 
     /** @test */
-    public function can_add_value_if_field_representer_is_repeatable() {
+    public function trow_error_if_adding_a_value_to_field_representer_parent_and_parent_is_not_valueabled_if_no_to_function_is_provided() {
+        $this->expectException( HttpException::class );
+
+        $nonValueable = NonValueableClass::create();
+
+        $value = $this->field->setValue( 1 )
+            ->save();
     }
 
-    // Can add values to fields if ObjectToBeAddedTo has both Fieldable and Valueable
-    // protected $fieldable = true;
+    /** @test */
+    public function can_add_multiple_values_if_field_representer_is_repeatable() {
+        $field = $this->fieldableAndValueable->addField([
+            'is_repeatable'=>true,
+        ]);
+        $field->addValue( 1 )
+            ->save();
 
-    // Add Valueable trait
+        $field->addValue( 2 )
+            ->save();
+
+        $this->assertEquals( 2, $this->fieldableAndValueable->values()->count() );
+    }
+
+    /** @test */
+    public function prevent_adding_of_multiple_values_if_repeatable_is_false() {
+    }
+
     // Check if we can use a value formater to format value
     // This should have a store and get function
     // etc. image.id to image object and image object to image.id

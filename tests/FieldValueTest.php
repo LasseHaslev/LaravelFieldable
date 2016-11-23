@@ -7,15 +7,6 @@ use LasseHaslev\LaravelFieldable\Traits\Valueable;
 use LasseHaslev\LaravelFieldable\Traits\Fieldable;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class NonValueableClass extends FieldType {};
-class FieldableAndValueable extends FieldRepresenter{
-    use Valueable, Fieldable;
-}
-class ValueableClass extends FieldType
-{
-    use Valueable;
-}
-
 /**
  * Class FieldRepresenterTest
  * @author Lasse S. Haslev

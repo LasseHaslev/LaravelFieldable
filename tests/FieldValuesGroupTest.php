@@ -8,16 +8,9 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * Class FieldRepresenterTest
  * @author Lasse S. Haslev
  */
-class FieldRepresenterGroupTest extends TestCase
+class FieldValuesGroupTest extends TestCase
 {
-    /**
-     * @var mixed
-     */
     protected $fieldType;
-
-    /**
-     * @var mixed
-     */
     protected $fieldable;
 
 

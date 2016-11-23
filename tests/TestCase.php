@@ -1,5 +1,18 @@
 <?php
 
+use LasseHaslev\LaravelFieldable\FieldType;
+use LasseHaslev\LaravelFieldable\Traits\Fieldable;
+use LasseHaslev\LaravelFieldable\Traits\Valueable;
+use LasseHaslev\LaravelFieldable\FieldRepresenter;
+
+/**
+ * Mocced classes
+ */
+class FieldableClass extends FieldType { use Fieldable; }
+class NonValueableClass extends FieldType {};
+class FieldableAndValueable extends FieldType{ use Valueable, Fieldable; }
+class ValueableClass extends FieldType { use Valueable; }
+
 /**
  * Class TestCase
  * @author Lasse S. Haslev

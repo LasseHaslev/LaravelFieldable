@@ -7,7 +7,7 @@
 class OrderTraitTest extends TestCase
 {
 
-    protected $objectToBeAddedOn;
+    protected $fieldable;
 
     protected $fieldOne;
     protected $fieldTwo;
@@ -23,21 +23,21 @@ class OrderTraitTest extends TestCase
     {
         parent::setUp();
 
-        $this->objectToBeAddedOn = ObjectToBeAddedOn::create();
+        $this->fieldable = FieldableClass::create();
 
-        $this->fields[] = $this->fieldOne = $this->objectToBeAddedOn->addField( [
+        $this->fields[] = $this->fieldOne = $this->fieldable->addField( [
             'name'=>'one',
             'field_type_id'=>'1',
         ] );
-        $this->fields[] = $this->fieldTwo = $this->objectToBeAddedOn->addField( [
+        $this->fields[] = $this->fieldTwo = $this->fieldable->addField( [
             'name'=>'two',
             'field_type_id'=>'1',
         ] );
-        $this->fields[] = $this->fieldThree = $this->objectToBeAddedOn->addField( [
+        $this->fields[] = $this->fieldThree = $this->fieldable->addField( [
             'name'=>'three',
             'field_type_id'=>'1',
         ] );
-        $this->fields[] = $this->fieldFour = $this->objectToBeAddedOn->addField( [
+        $this->fields[] = $this->fieldFour = $this->fieldable->addField( [
             'name'=>'four',
             'field_type_id'=>'1',
         ] );
@@ -57,7 +57,7 @@ class OrderTraitTest extends TestCase
     }
     /** @test */
     public function is_setting_order_to_only_this_fieldable_so_we_do_not_touch_other_fieldable_types() {
-        $earlierObject = ObjectToBeAddedOn::create();
+        $earlierObject = FieldableClass::create();
 
         $fieldOne = $earlierObject->addField( [
             'name'=>'lijsef',

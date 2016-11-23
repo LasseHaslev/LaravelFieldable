@@ -6,16 +6,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use LasseHaslev\LaravelFieldable\FieldType;
 
 /**
- * Class
- * @author yourname
- */
-// class ObjectToBeAddedOn extends Illuminate\Database\Eloquent\Model
-class ObjectToBeAddedOn extends FieldType
-{
-    use Fieldable;
-}
-
-/**
  * Class FieldRepresenterTest
  * @author Lasse S. Haslev
  */
@@ -30,26 +20,26 @@ class FieldRepresenterTest extends TestCase
     // Can create field representer on element
     /** @test */
     public function can_add_field_representer_on_element() {
-        $objectToBeAddedOn = new ObjectToBeAddedOn();
-        $objectToBeAddedOn->save();
+        $fieldable = new FieldableClass();
+        $fieldable->save();
 
-        $field = $objectToBeAddedOn->addField([
+        $field = $fieldable->addField([
             'name'=>'Field name',
             'identifier'=>'identifier',
             'description'=>'Description',
             'is_repeatable'=>false,
         ]);
 
-        $this->assertEquals( 'Field name', $objectToBeAddedOn->fields()->first()->name );
-        $this->assertEquals( 1, $objectToBeAddedOn->fields()->count() );
+        $this->assertEquals( 'Field name', $fieldable->fields()->first()->name );
+        $this->assertEquals( 1, $fieldable->fields()->count() );
     }
 
     /** @test */
     public function is_returning_field_when_adding_new_field() {
-        $objectToBeAddedOn = new ObjectToBeAddedOn();
-        $objectToBeAddedOn->save();
+        $fieldable = new FieldableClass();
+        $fieldable->save();
 
-        $returnValue = $objectToBeAddedOn->addField([
+        $returnValue = $fieldable->addField([
             'name'=>'Field name',
             'identifier'=>'identifier',
             'description'=>'Description',
@@ -105,17 +95,17 @@ class FieldRepresenterTest extends TestCase
 
     /** @test */
     public function can_get_equals() {
-        $objectToBeAddedOn = new ObjectToBeAddedOn();
-        $objectToBeAddedOn->save();
+        $fieldable = new FieldableClass();
+        $fieldable->save();
 
-        $firstField = $objectToBeAddedOn->addField([
+        $firstField = $fieldable->addField([
             'name'=>'Field name',
             'identifier'=>'identifier',
             'description'=>'Description',
             'is_repeatable'=>false,
         ]);
 
-        $new = new ObjectToBeAddedOn();
+        $new = new FieldableClass();
         $new->save();
 
         $field = $new->addField([

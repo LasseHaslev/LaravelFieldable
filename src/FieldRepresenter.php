@@ -140,5 +140,17 @@ class FieldRepresenter extends Model
         return $this->field_type_id == null;
     }
 
+    /**
+     * A set a value
+     *
+     * @return void
+     */
+    public function setValue( $value )
+    {
+        $valueObject = ( new FieldValue )->setRepresenter( $this );
+        $valueObject->value = $value;
+        return $valueObject;
+    }
+
 
 }

@@ -30,6 +30,4 @@ trait Fieldable
         return $this->morphMany(FieldRepresenter::class, 'fieldable');
     }
 
-
-
 }

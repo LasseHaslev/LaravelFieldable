@@ -3,6 +3,7 @@
 namespace LasseHaslev\LaravelFieldable;
 
 use Illuminate\Database\Eloquent\Model;
+use LasseHaslev\LaravelFieldable\FieldRepresenter;
 
 class FieldValue extends Model
 {
@@ -14,11 +15,11 @@ class FieldValue extends Model
     ];
 
     /**
-     * Get the fieldable
+     * Get the valueable
      *
      * @return void
      */
-    public function fieldable()
+    public function valueable()
     {
         return $this->morphTo();
     }
@@ -33,4 +34,28 @@ class FieldValue extends Model
     {
         return $this->belongsTo(FieldRepresenter::class, 'field_representer_id');
     }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function setRepresenter( FieldRepresenter $representer )
+    {
+        $this->field_representer_id = $representer->id;
+        return $this;
+    }
+
+    /**
+     * Wich field should we add value to
+     *
+     * @return void
+     */
+    public function to( $valueable )
+    {
+        $this->valueable()->associate( $valueable );
+        return $this;
+    }
+
+
 }

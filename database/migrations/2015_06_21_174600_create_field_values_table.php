@@ -25,10 +25,10 @@ class CreateFieldValuesTable extends Migration
                 ->on('field_representers')
                 ->onDelete('cascade');
 
-            $table->integer('fieldable_id')
+            $table->integer('valueable_id')
                 ->unsigned()
                 ->nullable();
-            $table->string('fieldable_type')
+            $table->string('valueable_type')
                 ->nullable();
 
             $table->timestamps();

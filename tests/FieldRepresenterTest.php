@@ -124,6 +124,12 @@ class FieldRepresenterTest extends TestCase
         $this->assertEquals( 1, FieldRepresenter::equals( $firstField->fieldable_type, $firstField->fieldable_id )->count() );
         $this->assertEquals( 2, $field->getEquals()->count() );
     }
+
+    /** @test */
+    public function can_check_if_fieldable_uses_fieldable_trait() {
+        $fieldable = FieldableClass::create();
+        $this->assertTrue( $fieldable->isFieldable() );
+    }
     // Can access values from FieldRepresenter
     // A Representer can have FieldValues
 

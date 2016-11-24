@@ -30,4 +30,15 @@ trait Fieldable
         return $this->morphMany(FieldRepresenter::class, 'fieldable');
     }
 
+    /**
+     * Check if this field is fieldable
+     *
+     * @return boolean
+     */
+    public function isFieldable()
+    {
+        return true;
+    }
+
+
 }

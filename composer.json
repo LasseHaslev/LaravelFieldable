@@ -1,6 +1,7 @@
 {
     "name": "lassehaslev/laravel-fieldable",
     "description": "Add functionality to add field and values dynamicly to laravel. How you use them is up to you.",
+    "version": "0.0.1",
     "type": "laravel-plugin",
     "authors": [
         {

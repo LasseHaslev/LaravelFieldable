@@ -2,7 +2,7 @@
 
 ## Install
 ``` bash
-composer require lassehaslev/fieldable
+composer require lassehaslev/laravel-fieldable
 ```
 
 ## Usage

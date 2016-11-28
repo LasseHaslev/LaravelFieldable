@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "lassehaslev/laravel-sortable": "dev-master"
+        "lassehaslev/laravel-sortable": "0.0.x"
     },
     "require-dev": {
         "orchestra/testbench": "3.3.x",

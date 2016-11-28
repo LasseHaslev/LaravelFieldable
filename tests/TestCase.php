@@ -51,7 +51,10 @@ class TestCase extends Orchestra\Testbench\TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['LasseHaslev\LaravelFieldable\Providers\ServiceProvider'];
+        return [
+            'LasseHaslev\LaravelSortable\Providers\ServiceProvider',
+            'LasseHaslev\LaravelFieldable\Providers\ServiceProvider',
+        ];
     }
 
 }

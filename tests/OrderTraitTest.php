@@ -80,35 +80,10 @@ class OrderTraitTest extends TestCase
 
     }
 
-
-    /** @test */
-    public function can_get_order_diferenceial() {
-
-        $this->fieldTwo->moveTo( 0 );
-        $this->assertEquals( -1, $this->fieldTwo->orderDifference() );
-
-        $this->fieldTwo->moveTo( 1 );
-        $this->assertEquals( 0, $this->fieldTwo->orderDifference() );
-
-        $this->fieldTwo->moveTo( 2 );
-        $this->assertEquals( 1, $this->fieldTwo->orderDifference() );
-
-    }
-
-    /** @test */
-    public function can_check_if_the_order_has_diverged_from_original() {
-
-        $this->assertNotTrue( $this->fieldTwo->orderDiverged() );
-
-        $this->fieldTwo->moveTo( 0 );
-        $this->assertTrue( $this->fieldTwo->orderDiverged() );
-
-    }
     /** @test */
     public function can_move_to_position() {
 
-        $this->fieldOne->moveTo( 2 )
-            ->save();
+        $this->fieldOne->moveTo( 2 );
 
         $this->reloadModels();
 
@@ -118,8 +93,8 @@ class OrderTraitTest extends TestCase
         $this->assertEquals( 1, $this->fieldThree->order );
         $this->assertEquals( 3, $this->fieldFour->order );
 
-        $this->fieldOne->moveTo( 1 )
-            ->save();
+        $this->fieldOne->moveTo( 1 );
+
         $this->reloadModels();
 
         // Check
@@ -132,8 +107,7 @@ class OrderTraitTest extends TestCase
 
     /** @test */
     public function can_increase_positon_by_one() {
-        $this->fieldOne->moveUp()
-            ->save();
+        $this->fieldOne->moveUp();
         $this->reloadModels();
 
         // Check
@@ -145,8 +119,7 @@ class OrderTraitTest extends TestCase
 
     /** @test */
     public function can_decrease_positon_by_one() {
-        $this->fieldTwo->moveDown()
-            ->save();
+        $this->fieldTwo->moveDown();
 
         $this->reloadModels();
 
@@ -159,14 +132,12 @@ class OrderTraitTest extends TestCase
 
     /** @test */
     public function order_cannot_go_below_zero() {
-        $this->fieldOne->moveDown()
-            ->save();
+        $this->fieldOne->moveDown();
 
         $this->reloadModels();
         $this->assertEquals( 0, $this->fieldOne->order );
 
-        $this->fieldTwo->moveTo(-1)
-            ->save();
+        $this->fieldTwo->moveTo(-1);
 
         $this->reloadModels();
         $this->assertEquals( 0, $this->fieldTwo->order );
@@ -174,14 +145,12 @@ class OrderTraitTest extends TestCase
 
     /** @test */
     public function order_cannot_go_above_max_numbers() {
-        $this->fieldFour->moveUp()
-            ->save();
+        $this->fieldFour->moveUp();
 
         $this->reloadModels();
         $this->assertEquals( 3, $this->fieldFour->order );
 
-        $this->fieldTwo->moveTo(10)
-            ->save();
+        $this->fieldTwo->moveTo(10);
 
         $this->reloadModels();
         $this->assertEquals( 0, $this->fieldOne->order );

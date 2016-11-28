@@ -4,14 +4,15 @@ namespace LasseHaslev\LaravelFieldable;
 
 use App\Modules\Ads\FormatImageInfo;
 use Illuminate\Database\Eloquent\Model;
-use LasseHaslev\LaravelFieldable\Traits\Orderable;
 use LasseHaslev\LaravelFieldable\Traits\Fieldable;
+use LasseHaslev\LaravelSortable\Traits\Sortable;
+
 
 class FieldRepresenter extends Model
 {
 
     use Fieldable;
-    use Orderable;
+    use Sortable;
 
     protected $table = 'field_representers';
 
@@ -174,6 +175,37 @@ class FieldRepresenter extends Model
 
         return $valueObject;
     }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    public function moveTo($position)
+    {
+        $this->getEquals()->moveTo( $this, $position );
+    }
+
+    /**
+     * Move up
+     *
+     * @return void
+     */
+    public function moveUp()
+    {
+        return $this->getEquals()->incrementPosition( $this );
+    }
+
+    /**
+     * Move up
+     *
+     * @return void
+     */
+    public function moveDown()
+    {
+        return $this->getEquals()->decrementPosition( $this );
+    }
+
 
 
 }

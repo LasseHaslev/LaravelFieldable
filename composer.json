@@ -8,7 +8,9 @@
             "email": "lasse@haslev.no"
         }
     ],
-    "require": {},
+    "require": {
+        "lassehaslev/laravel-sortable": "dev-master"
+    },
     "require-dev": {
         "orchestra/testbench": "3.3.x",
         "phpunit/phpunit": "^5.6"

@@ -6,6 +6,7 @@ use App\Modules\Ads\FormatImageInfo;
 use Illuminate\Database\Eloquent\Model;
 use LasseHaslev\LaravelFieldable\Traits\Fieldable;
 use LasseHaslev\LaravelSortable\Traits\Sortable;
+use LasseHaslev\LaravelFieldable\Traits\BelongsToFieldType;
 
 
 class FieldRepresenter extends Model
@@ -13,6 +14,7 @@ class FieldRepresenter extends Model
 
     use Fieldable;
     use Sortable;
+    use BelongsToFieldType;
 
     protected $table = 'field_representers';
 

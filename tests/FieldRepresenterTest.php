@@ -144,6 +144,23 @@ class FieldRepresenterTest extends TestCase
         $fieldable = FieldableClass::create();
         $this->assertTrue( $fieldable->isFieldable() );
     }
+
+    /** @test */
+    public function can_set_field_type() {
+        $fieldType = factory( FieldType::class )->create();
+        $fieldRepresenter = factory( FieldRepresenter::class )->create();
+        $fieldRepresenter->setFieldType( $fieldType )
+            ->save();
+
+        $this->assertEquals( $fieldType->id, $fieldRepresenter->fieldType->id );
+    }
+
+    /** @test */
+    public function get_view_of_field_representer() {
+        $fieldRepresenter = factory( FieldRepresenter::class )->create();
+
+        $this->assertEquals( $fieldRepresenter->fieldType->viewPath(), $fieldRepresenter->fieldView() );
+    }
     // Can access values from FieldRepresenter
     // A Representer can have FieldValues
 

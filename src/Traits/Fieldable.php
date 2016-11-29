@@ -3,6 +3,7 @@
 namespace LasseHaslev\LaravelFieldable\Traits;
 
 use LasseHaslev\LaravelFieldable\FieldRepresenter;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Trait Fieldable
@@ -15,8 +16,13 @@ trait Fieldable
      *
      * @return void
      */
-    public function addField( array $attributes = [] )
+    public function addField( $attributes = [] )
     {
+
+        if ( $attributes instanceOf Model && $attributes->isFieldable() ) {
+            return $this->fields()->save( $attributes );
+        }
+
         return $this->fields()->create( $attributes );
     }
 
@@ -38,6 +44,20 @@ trait Fieldable
     public function isFieldable()
     {
         return true;
+    }
+
+    /**
+     * Add field and value
+     *
+     * @return self
+     */
+    public function addFieldAndValue($field, $value)
+    {
+        $field = $this->addField( $field );
+        $field->addValue( $value )
+            ->to( $this )
+            ->save();
+        return $this;
     }
 
 

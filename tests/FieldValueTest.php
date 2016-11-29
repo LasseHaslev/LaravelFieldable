@@ -147,6 +147,16 @@ class FieldValueTest extends TestCase
         $this->assertEquals( 1, $this->fieldableAndValueable->values()->count() );
     }
 
+    /** @test */
+    public function can_add_field_and_value() {
+        $field = FieldRepresenter::create();
+        $this->fieldableAndValueable->addFieldAndValue( $field, 'value' );
+
+        $this->assertEquals( 1, $this->fieldableAndValueable->fields()->count() );
+        $this->assertEquals( 1, $this->fieldableAndValueable->values()->count() );
+
+    }
+
     // Check if we can use a value formater to format value
     // This should have a store and get function
     // etc. image.id to image object and image object to image.id

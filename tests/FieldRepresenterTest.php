@@ -35,6 +35,20 @@ class FieldRepresenterTest extends TestCase
     }
 
     /** @test */
+    public function can_add_existing_field_representer_to_element() {
+        $fieldable = new FieldableClass();
+        $fieldable->save();
+
+        $field = FieldRepresenter::create([
+            'name'=>'etc. lijsef',
+        ]);
+
+        $fieldable->addField( $field );
+
+        $this->assertEquals( 1, $fieldable->fields()->count() );
+    }
+
+    /** @test */
     public function is_returning_field_when_adding_new_field() {
         $fieldable = new FieldableClass();
         $fieldable->save();

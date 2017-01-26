@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use LasseHaslev\LaravelFieldable\Traits\Fieldable;
 use LasseHaslev\LaravelSortable\Traits\Sortable;
 use LasseHaslev\LaravelFieldable\Traits\BelongsToFieldType;
+use Illuminate\Support\Facades\View;
 
 
 class FieldRepresenter extends Model
@@ -208,6 +209,24 @@ class FieldRepresenter extends Model
         return $this->getEquals()->decrementPosition( $this );
     }
 
+    /**
+     * Get the full view for this
+     *
+     * @return Illuminate\Support\Facades\View
+     */
+    public function view( $valueable )
+    {
+        if( View::exists( $this->fieldType->view ) ) {
+            $values = $valueable ? $valueable->values()->where( 'field_representer_id', $this->id )->get() : [];
+
+            return view( $this->fieldType->view )
+                ->with( 'title', $this->name )
+                ->with( 'isRepeatable', $this->is_repeatable )
+                ->with( 'name', sprintf( 'valueable[%s]%s', $this->identifier, $this->is_repeatable ? '[]' : '' ) )
+                ->with( 'values', $values );
+        }
+        return null;
+    }
 
 
 }

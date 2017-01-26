@@ -30,4 +30,39 @@ trait Valueable
         return $this->morphMany(FieldValue::class, 'valueable');
     }
 
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        static::saved(function ($valueable) {
+            // Check if has valueable
+            if (request()->has( 'valueable' )) {
+                $valueable->saveValues( request()->get( 'valueable' ) );
+            }
+        });
+        return parent::boot();
+    }
+
+    /**
+     * undocumented function
+     *
+     * @return void
+     */
+    protected function saveValues( $values )
+    {
+        foreach ($values as $identifier=>$value) {
+            $representer = $this->fields()->where( 'identifier', $identifier )->first();
+
+            if ( ! $representer ) {
+                abort( 500, sprintf( 'The "%s" identifier is not found on this field', $identifier ) );
+            }
+
+            $representer->setValue( $value )->save();
+        }
+    }
+
+
 }

@@ -47,7 +47,7 @@ trait Fieldable
     }
 
     /**
-     * Add field and value
+     * Add field and field
      *
      * @return self
      */
@@ -60,5 +60,22 @@ trait Fieldable
         return $this;
     }
 
+    /**
+     * Save values
+     *
+     * @return void
+     */
+    public function saveFieldable( $request )
+    {
+
+        if ( ! $request->has( 'fieldable' ) ) {
+            return null;
+        }
+
+        $data = $request->get( 'fieldable' );
+
+        $this->fields()->create( $data );
+
+    }
 
 }

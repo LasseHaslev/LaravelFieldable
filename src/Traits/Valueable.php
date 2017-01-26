@@ -31,28 +31,19 @@ trait Valueable
     }
 
     /**
-     * Bootstrap any application services.
+     * Save values
      *
      * @return void
      */
-    public static function boot()
+    public function saveValueable( $request )
     {
-        static::saved(function ($valueable) {
-            // Check if has valueable
-            if (request()->has( 'valueable' )) {
-                $valueable->saveValues( request()->get( 'valueable' ) );
-            }
-        });
-        return parent::boot();
-    }
 
-    /**
-     * undocumented function
-     *
-     * @return void
-     */
-    protected function saveValues( $values )
-    {
+        if ( ! $request->has( 'valueable' ) ) {
+            return null;
+        }
+
+        $values = $request->get( 'valueable' );
+
         foreach ($values as $identifier=>$value) {
             $representer = $this->fields()->where( 'identifier', $identifier )->first();
 

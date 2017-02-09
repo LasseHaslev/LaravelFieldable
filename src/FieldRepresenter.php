@@ -8,11 +8,13 @@ use LasseHaslev\LaravelFieldable\Traits\Fieldable;
 use LasseHaslev\LaravelSortable\Traits\Sortable;
 use LasseHaslev\LaravelFieldable\Traits\BelongsToFieldType;
 use Illuminate\Support\Facades\View;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 
 class FieldRepresenter extends Model
 {
 
+    use Sluggable;
     use Fieldable;
     use Sortable;
     use BelongsToFieldType;
@@ -28,6 +30,22 @@ class FieldRepresenter extends Model
         'is_repeatable',
         'field_type_id',
     ];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'identifier' => [
+                'source' => 'name',
+                'separator' => '_',
+                'unique'=> false,
+            ]
+        ];
+    }
 
     /**
      * connect to the template

@@ -1,4 +1,5 @@
 # lassehaslev/fieldable
+>>> Warning!! This package is under development and app breaking changes will come before release!!
 
 ## Install
 ``` bash

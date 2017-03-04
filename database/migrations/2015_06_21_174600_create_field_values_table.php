@@ -15,7 +15,7 @@ class CreateFieldValuesTable extends Migration
         Schema::create('field_values', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('value');
+            $table->text('value');
 
             $table->integer('field_representer_id')
                 ->unsigned()
